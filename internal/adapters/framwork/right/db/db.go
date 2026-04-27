@@ -27,11 +27,10 @@ func NewAdapter(ctx context.Context, username, password, host, port, database, p
 		return adapterInstance
 	}
 
-	conStr := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s  sslmode=disable pool_max_conns=%s", username, password, host, port, database, poolMaxConns)
+	conStr := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable pool_max_conns=%s", username, password, host, port, database, poolMaxConns)
 	connectionPool, err := pgxpool.New(ctx, conStr)
 	if err != nil {
 		log.Fatal(err)
-
 	}
 
 	err = connectionPool.Ping(ctx)
@@ -54,7 +53,8 @@ func (a Adapter) AppendHistory(ctx context.Context, operation string, answer flo
 	query, arg, err := sq.
 		Insert("arithmatic_history").
 		Columns("operation", "answer").
-		Values(operation, answer).ToSql()
+		Values(operation, answer).
+		ToSql()
 	if err != nil {
 		return err
 	}

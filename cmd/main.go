@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
@@ -10,9 +11,10 @@ import (
 )
 
 func main() {
+	ctx := context.TODO()
 	var arithmaticPort ports.ArithmaticPort
 	arithmaticPort = arithmatic.NewAdapter()
-	result, err := arithmaticPort.Add(6, 9)
+	result, err := arithmaticPort.Add(ctx, 6, 9)
 	if err != nil {
 		log.Fatal(err)
 	}

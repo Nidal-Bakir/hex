@@ -1,8 +1,10 @@
 package ports
 
+import "context"
+
 type ApiPort interface {
-	GetAdd(a, b int) (int, error)
-	GetSub(a, b int) (int, error)
-	GetMul(a, b int) (int, error)
-	GetDiv(a, b int) (float64, error)
+	GetAdd(ctx context.Context, a, b int) (int, error)
+	GetSub(ctx context.Context, a, b int) (int, error)
+	GetMul(ctx context.Context, a, b int) (int, error)
+	GetDiv(ctx context.Context, a, b int) (float64, error)
 }

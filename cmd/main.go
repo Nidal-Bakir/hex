@@ -2,21 +2,36 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"log"
+	"os"
 
+	"github.com/Nidal-Bakir/hex/internal/adapters/app/api"
 	"github.com/Nidal-Bakir/hex/internal/adapters/core/arithmatic"
-	_ "github.com/Nidal-Bakir/hex/internal/appenv" // autoload .env with init function. Do not remove this line
+	"github.com/Nidal-Bakir/hex/internal/adapters/framwork/left/grpc"
+	"github.com/Nidal-Bakir/hex/internal/adapters/framwork/right/db"
 	"github.com/Nidal-Bakir/hex/internal/ports"
+)
+
+var (
+	database     = os.Getenv("DB_DATABASE")
+	password     = os.Getenv("DB_PASSWORD")
+	username     = os.Getenv("DB_USERNAME")
+	port         = os.Getenv("DB_PORT")
+	host         = os.Getenv("DB_HOST")
+	poolMaxConns = os.Getenv("DB_POOL_MAX_CONNS")
 )
 
 func main() {
 	ctx := context.TODO()
+
+	var dbPort ports.DbPort
+	var gRPCPort ports.GrpcPort
+	var apiPort ports.ApiPort
 	var arithmaticPort ports.ArithmaticPort
+
+	dbPort = db.NewAdapter(ctx, username, password, host, port, database, poolMaxConns)
+	defer dbPort.CloseCon(ctx)
 	arithmaticPort = arithmatic.NewAdapter()
-	result, err := arithmaticPort.Add(ctx, 6, 9)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(result)
+	apiPort = api.NewAdapter(dbPort, arithmaticPort)
+	gRPCPort = grpc.NewAdapter(apiPort)
+	gRPCPort.Run()
 }

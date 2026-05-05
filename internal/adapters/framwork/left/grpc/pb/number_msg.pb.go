@@ -23,7 +23,7 @@ const (
 
 type Answer struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Value         float32                `protobuf:"fixed32,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value         float64                `protobuf:"fixed64,1,opt,name=value,proto3" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -58,7 +58,7 @@ func (*Answer) Descriptor() ([]byte, []int) {
 	return file_number_msg_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Answer) GetValue() float32 {
+func (x *Answer) GetValue() float64 {
 	if x != nil {
 		return x.Value
 	}
@@ -67,8 +67,8 @@ func (x *Answer) GetValue() float32 {
 
 type OperationParametars struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	A             float32                `protobuf:"fixed32,1,opt,name=a,proto3" json:"a,omitempty"`
-	B             float32                `protobuf:"fixed32,2,opt,name=b,proto3" json:"b,omitempty"`
+	A             float64                `protobuf:"fixed64,1,opt,name=a,proto3" json:"a,omitempty"`
+	B             float64                `protobuf:"fixed64,2,opt,name=b,proto3" json:"b,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -103,14 +103,14 @@ func (*OperationParametars) Descriptor() ([]byte, []int) {
 	return file_number_msg_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *OperationParametars) GetA() float32 {
+func (x *OperationParametars) GetA() float64 {
 	if x != nil {
 		return x.A
 	}
 	return 0
 }
 
-func (x *OperationParametars) GetB() float32 {
+func (x *OperationParametars) GetB() float64 {
 	if x != nil {
 		return x.B
 	}
@@ -123,10 +123,10 @@ const file_number_msg_proto_rawDesc = "" +
 	"\n" +
 	"\x10number_msg.proto\x12\x02pb\"\x1e\n" +
 	"\x06Answer\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\x02R\x05value\"1\n" +
+	"\x05value\x18\x01 \x01(\x01R\x05value\"1\n" +
 	"\x13OperationParametars\x12\f\n" +
-	"\x01a\x18\x01 \x01(\x02R\x01a\x12\f\n" +
-	"\x01b\x18\x02 \x01(\x02R\x01bB\x06Z\x04./pbb\x06proto3"
+	"\x01a\x18\x01 \x01(\x01R\x01a\x12\f\n" +
+	"\x01b\x18\x02 \x01(\x01R\x01bB\x06Z\x04./pbb\x06proto3"
 
 var (
 	file_number_msg_proto_rawDescOnce sync.Once
